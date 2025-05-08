@@ -1,2 +1,21 @@
-<h1>Movies#index</h1>
-<p>Find me in app/views/movies/index.html.erb</p>
+<h1>All Movies</h1>
+
+<div class="movies-list">
+  <% @movies.each do |movie| %>
+    <div class="movie-card">
+      <h2><%= movie.title %></h2>
+      <p><%= movie.overview %></p>
+      <p><strong>Rating:</strong> <%= movie.rating %></p>
+
+      <% if movie.poster_url.present? %>
+        <%= image_tag movie.poster_url, alt: "#{movie.title} poster" %>
+      <% end %>
+
+      <div class="movie-lists">
+        <% movie.lists.each do |list| %>
+          <%= link_to list.name, list_path(list), class: 'btn btn-sm btn-outline-primary' %>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+</div>
