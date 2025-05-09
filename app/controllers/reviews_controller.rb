@@ -1,11 +1,10 @@
 class ReviewsController < ApplicationController
   def create
-    @review = Review.new(review_params)
     @list = List.find(params[:list_id])
+    @review = Review.new(review_params)
     if @review.save
       redirect_to list_path(@list), notice: "Review added!"
     else
-      @bookmark = Bookmark.new
       render "lists.show", status: :unprocessable_entity
     end
   end
@@ -13,7 +12,7 @@ class ReviewsController < ApplicationController
   def destroy
     @review = Review.find(params[:id])
     @review.destroy
-    redirect_to list_path(@review.list)
+    redirect_to list_path(@review.list), notice: "Review removed"
   end
 
   private
